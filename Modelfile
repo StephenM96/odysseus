@@ -1,0 +1,30 @@
+﻿FROM "C:\Odysseus\odysseus\data\huggingface\hub\models--mradermacher--Huihui-Qwen3-8B-abliterated-v2-GGUF\snapshots\64c8e52a68276ef181b7695813c5883070b783a0\Huihui-Qwen3-8B-abliterated-v2.Q8_0.gguf"
+
+TEMPLATE """{{ if .Messages }}
+{{- if or .System .Tools }}<|im_start|>system
+{{- if .System }}
+{{ .System }}
+{{- end }}
+{{- if .Tools }}
+# Tools
+You are provided with function signatures within <tools></tools> XML tags:
+<tools>{{- range .Tools }}
+{"type": "function", "function": {{ .Function }}}
+{{- end }}
+</tools>
+For each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:
+<tool_call>
+{"name": <function-name>, "arguments": <json-args>}
+</tool_call>
+{{- end }}<|im_end|>
+{{- end }}
+{{- range .Messages }}
+<|im_start|>{{ .Role }}
+{{ .Content }}<|im_end|>
+{{- end }}
+<|im_start|>assistant
+{{- end }}"""
+
+PARAMETER num_ctx 16384
+PARAMETER stop "<|im_start|>"
+PARAMETER stop "<|im_end|>"

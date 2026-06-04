@@ -1620,6 +1620,7 @@ function _renderRecipes() {
   html += '<select class="cookbook-field-input hwfit-usecase" id="hwfit-usecase" style="height:28px;">';
   html += '<option value="general" selected>Standard</option><option value="coding">Coding</option>';
   html += '<option value="reasoning">Reasoning</option><option value="chat">Chat</option>';
+  html += '<option value="image_gen">Image</option>';
   // Image tab removed — text→image gen is gone from this build (only inpaint
    // remains, which uses its own settings panel). Vision (multimodal) stays.
   html += '<option value="multimodal">Vision</option></select>';

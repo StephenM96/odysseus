@@ -122,8 +122,9 @@ unless you opt in.
 
 **Cookbook storage in Docker.** Downloads live in `./data/huggingface`
 (`~/.cache/huggingface` in the container). Cookbook-installed Python CLIs and
-serve engines live in `./data/local` (`~/.local` in the container), so they
-survive container recreation.
+serve engines live in a Docker-managed named volume (`odysseus-local`, mapped to
+`/app/.local` in the container) to ensure native file operations (e.g. symlinks)
+and fast I/O on all host platforms, surviving container recreation.
 
 **Remote servers.** In **Cookbook -> Settings -> Servers**, generate the
 Odysseus SSH key and add the public key to the remote server's
